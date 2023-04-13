@@ -29,24 +29,6 @@ sax.set_xlabel("Temprtature [mK]")
 ticks = np.arange(0,100,20)
 sax.set_xticks(ticks)
 
-temp331, res331, x331, y331, chi331, m331, b331 = MakeLNRVSQRTT("../Data_Dec11_2022.csv", current, 3., 1., 3., "deltamode", "10nA", "10mV", 37)
-temp311, res311, x311, y311, chi311, m311, b311 = MakeLNRVSQRTT("../Data_Dec11_2022_testing.csv", current, 3., 1., 3., "deltamode", "10nA", "10mV", 37)
-temp351, res351, x351, y351, chi351, m351, b351 = MakeLNRVSQRTT("../Data_Dec11_2022_testing.csv", current, 3., 1., 3., "deltamode", "10nA", "10mV", 37)
-temp111, res111, x111, y111, chi111, m111, b111 = MakeLNRVSQRTT("../Data_Dec11_2022_testing.csv", current, 3., 1., 3., "deltamode", "10nA", "10mV", 37)
-
-plt.scatter(temp331, res331, label="3x3x1 Data")
-plt.plot(x331, y331, label='3x3x1 Fit')
-plt.scatter(temp311, res311, label="3x1x1 Data")
-plt.plot(x311, y311, label='3x1x1 Fit')
-#plt.scatter(temp351, res351, label="3x0.5x1 Data")
-#plt.plot(x351, y351, label='3x0.5x1 Fit')
-#plt.scatter(temp111, res111, label="1x1x1 Data")
-#plt.plot(x111, y111, label='1x1x1 Fit')
-
-plt.legend(loc='best')
-
-plt.savefig("allNTDs.png")
-
 for data in datafiles:
     count = count + 1
     if count < 3:
@@ -60,4 +42,10 @@ for data in datafiles:
         outfile.write(data[1] + " NTD: R0 = "+str((np.exp(b) / data[2]))+" ohms, T0 = "+str(m[0]*m[0])+"\n")
         outfile.write(data[1] + " NTD Fit quality: chi2 = "+str(chi))
 
+        plt.scatter(temp, res, label=str(data[1])+" Data")
+        plt.plot(x, y, label=str(data[1])+" Fit")
+
+plt.legend(loc='best')
+
+plt.savefig("allNTDs.png")
 outfile.close()
