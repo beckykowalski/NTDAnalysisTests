@@ -36,11 +36,11 @@ def PARSEDATA(datafile):
 #            if row[0] == "Still Power (mW)":
             if row[0] == "Volt":
                 continue
-            vval = float(row[0])*.001
+            vval = float(row[5])*.001
             volt.append(vval)
-            voltErr.append(float(row[1])*0.001)
-            temp.append(float(row[2])*0.001)
-            tempErr.append(float(row[3])*0.001)
+            voltErr.append(float(row[6])*0.001)
+            temp.append(float(row[3])*0.001)
+            tempErr.append(float(row[4])*0.001)
     return volt, voltErr, temp, tempErr
     
             
